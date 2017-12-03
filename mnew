@@ -1,0 +1,14 @@
+if [ -d "${1}" ];
+then
+    echo "problem exists. exit"
+    exit 1
+fi
+
+mkdir "${1}"
+cp skeleton.cc "${1}"/"${1}".cc
+cd "${1}"
+touch in
+touch "${1}" #assuming the same name for binary (e.g. geany)
+ln -s "${1}" runme
+chmod +x runme
+cd ..
