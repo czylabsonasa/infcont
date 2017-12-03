@@ -8,7 +8,7 @@ mkdir "${1}"
 cp skeleton.cc "${1}"/"${1}".cc
 cd "${1}"
 touch in
-touch "${1}" #assuming the same name for binary (e.g. geany)
-ln -s "${1}" runme
+touch "${1}".bin #assuming the same name for binary (e.g. geany)
+ln -s "${1}".bin runme
 chmod +x runme
 cd ..
