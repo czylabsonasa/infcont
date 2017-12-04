@@ -1,0 +1,41 @@
+struct disjointSet{
+   int H;
+   vector<int> holvan;
+   disjointSet(int tH=1000):H(tH),holvan(H){}
+   void clear(int aH){
+      if(aH>H){
+         H=aH;
+         holvan.resize(H);
+      }
+      for(int i=0;i<aH;i++){
+         holvan[i]=-1;
+      }
+   }
+   int find(int t){ // utfelezeses (PathHalving)
+      int ht,hht;
+      if((ht=holvan[t])>=0){
+         while((hht=holvan[ht])>=0){
+            holvan[t]=hht;
+            t=ht;
+            ht=hht;
+         }
+         t=ht;
+      }
+      return t;
+   }
+   int find_(int t){ // tomoriteses (PathCompressing)
+      int ht,ans;
+      ans=ht=t;
+      while((ht=holvan[ht])>=0){
+         ans=ht ;
+      }
+      while((ht=holvan[t])>=0){
+         holvan[t]=ans;
+         t=ht;
+      }
+      return ans;
+   }
+   void unio(int a,int b){
+      holvan[a]=b;
+   }
+};
