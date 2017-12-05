@@ -1,0 +1,23 @@
+typedef long long int LLI;
+int const N=50;
+vector<LLI> binCoeff[N+1];
+
+int main(){
+   for(int i=0;i<=N;i++){
+      binCoeff[i].resize(i+1);
+      binCoeff[i][0]=binCoeff[i][i]=1;
+   }
+   for(int n=2;n<=N;n++){
+      for(int k=1;k<n;k++){
+         binCoeff[n][k]=binCoeff[n-1][k-1]+binCoeff[n-1][k];
+      }
+   }
+   for(int n=0;n<=10;n++){
+      for(int k=0;k<=n;k++){
+         printf("%lld ",binCoeff[n][k]);
+      }
+      printf("\n");
+   }
+
+   return 0;
+}
