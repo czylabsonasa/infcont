@@ -1,0 +1,36 @@
+namespace dir{
+   int dir[4][2]={{0,1},{-1,0},{0,-1},{1,0}};
+   enum dirName{E=0,N=1,W=2,S=3};
+   int left[4]={1,2,3,0};
+   int right[4]={3,0,1,2};
+   int loc[2]={-1,-1};
+   int tloc[2]={-1,-1};
+   int adir;
+   void init(int ad,int x,int y){//starting pos and direction
+      adir=ad;
+      loc[0]=x;loc[1]=y;
+   }
+   void turnL(){
+      adir=left[adir];
+   }
+   void turnR(){
+      adir=right[adir];
+   }
+   int* get(){
+      return dir[adir];
+   }
+   int* move(){
+      tloc[0]=loc[0]+dir[adir][0];
+      tloc[1]=loc[1]+dir[adir][1];
+      return tloc;
+   }
+   void accept(){
+      loc[0]=tloc[0];
+      loc[1]=tloc[1];
+   }
+};
+//dir::init(1,i,k); 
+// int* tloc=dir::move();
+// dir::accept();
+// dir::turnR();
+// dir::turnL();

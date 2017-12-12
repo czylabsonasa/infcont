@@ -1,0 +1,89 @@
+// type // topological sort // bfs // graph
+//
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <vector>
+using namespace std;
+int const D=128;
+char drink[D][64];
+struct data{
+   char* name;
+   int idx1;
+   int idx2;
+};
+data adat[D];
+char adj[D][D];
+
+bool less1(const data& a,const data& b){
+   return strcmp(a.name,b.name)<0;
+}
+bool less2(const data& a,const data& b){
+//   return adj[a.idx2][b.idx2]||(!adj[b.idx2][a.idx2]&&a.idx1<b.idx1);
+   return (!adj[b.idx2][a.idx2]&&a.idx1<b.idx1)||adj[a.idx2][b.idx2];
+}
+
+
+
+int main(){
+
+   int eset=0;
+   int na;
+   while(1==scanf("%d",&na)){
+      //read+init
+      for(int i=0;i<na;i++){
+         scanf("%s",drink[i]);
+         adat[i].name=drink[i];
+         adat[i].idx1=i;//original
+         for(int j=0;j<na;adj[i][j]=0,j++);
+      }
+
+      sort(adat,adat+na,less1);
+      for(int i=0;i<na;i++){
+         adat[i].idx2=i;//after sort
+      }
+
+      char a[D],b[D];
+      int nrel;
+      scanf("%d",&nrel);
+      data tmp;
+      for(int i=0;i<nrel;i++){
+         scanf("%s%s",a,b);
+         tmp.name=a;
+         int ai=lower_bound(adat,adat+na,tmp,less1)-adat;
+         tmp.name=b;
+         int bi=lower_bound(adat,adat+na,tmp,less1)-adat;
+         adj[ai][bi]=1;
+      }
+
+      for(int k=0;k<na;k++){
+         for(int i=0;i<na;i++){
+            if(!adj[i][k]){continue;}
+            for(int j=0;j<na;j++){
+               if(adj[k][j]){adj[i][j]=1;}
+            }
+         }
+      }
+
+for(int i=0;i<na;i++){
+   printf("%12s   ",adat[i].name);
+   for(int j=0;j<na;j++){
+      printf("%d ",adj[i][j]);
+   }
+   printf("\n");
+}
+
+      sort(adat,adat+na,less2);
+      sort(adat,adat+na,less2);
+
+      printf("Case #%d: Dilbert should drink beverages in this order:",++eset);
+      for(int i=0;i<na;i++){
+         printf(" %s",adat[i].name);
+      }
+      printf(".\n\n");
+
+   }
+
+   return 0;
+}
