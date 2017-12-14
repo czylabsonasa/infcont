@@ -1,0 +1,45 @@
+int const Np=2000;
+int primes[Np+1]={2,3,5,7,11,13,17,19,23};
+void fillPrimes(){
+   int i=9, jelolt=23, k=2;
+   while(i<=Np){
+      jelolt+=k ;
+      k=6-k;
+      int j=2;
+      while(primes[j]<=jelolt/primes[j]){
+         if(0==jelolt%primes[j]){
+            j=-1;
+            break;
+         }
+         j++ ;
+      }
+      if(j>0){
+         primes[i++]=jelolt;
+      }
+   }
+}
+int isprime(int n){
+   if(1==n){
+      return 0;
+   }
+   if(2==n||3==n){
+      return 1;
+   }
+   if(0==n%2||0==n%3){
+      return 0;
+   }
+   int i=2;
+   while(1){
+      int pi=primes[i++];
+      int q=n/pi;
+      if(pi>q){
+         return 1;
+      }
+      if(pi*q==n){
+         return 0;
+      }
+   }
+}
+
+// fillPrimes();
+// isprime(fn);
