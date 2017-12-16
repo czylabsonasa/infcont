@@ -5,7 +5,7 @@ then
 fi
 cd work
 mkdir "${1}"
-cp ../skeleton${2}.cc "${1}"/"${1}".cc
+cp ../etc/skeleton${2}.cc "${1}"/"${1}".cc
 cd "${1}"
 touch in
 touch "${1}".bin #assuming the same name for binary (e.g. geany)
