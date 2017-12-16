@@ -5,7 +5,7 @@
 using namespace std;
 int main(){
    int esetek;scanf("%d",&esetek);
-   for(int eset=1;eset<=esetek;eset++)
+   for(int eset=1;eset<=esetek;eset++){
 
       printf("Case %d: ",eset);
    }
