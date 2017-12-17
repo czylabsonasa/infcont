@@ -8,3 +8,19 @@ int getnum(void){
    }
    return ans;
 }
+
+#define GETCHAR getchar_unlocked
+bool getnum(int&x){
+   int i;
+   while(!(((i=GETCHAR())>='0')&&(i<='9'))&&i!=EOF);
+   if(i==EOF){
+      return false;
+   }
+   x=(i-'0');
+   while(((i=GETCHAR())>='0')&&(i<='9')){
+      x=((x<<1)+(x<<3)+(i-'0'));
+   }
+   return true;
+}
+
+
