@@ -18,6 +18,7 @@ int main(int npar, char**par){
 			p=so;
 		}
 		putchar(i^(*p));
+		++p;
 	}
 	return 0;
 }
