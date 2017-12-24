@@ -1,0 +1,39 @@
+//lancolt lista, nem negativ egeszekre
+// insert + append(az egesz listat hozzarakja)
+template<int F=10,int L=1000> struct iLista{
+   int nxt[L];
+   int val[L];
+   int beg[F];
+   int end[F];
+   int n;
+   void clear(){
+      for(int i=0;i<F;i++){
+         beg[i]=end[i]=-1;
+      }
+      n=-1;
+   }
+   void insert(int f,int x){
+      ++n;
+      if(beg[f]<0){
+         end[f]=n;
+      }
+      int t=beg[f];
+      beg[f]=n;
+      val[n]=x;
+      nxt[n]=t;
+   }
+   void append(int f0,int f1){
+      if(beg[f1]<0){
+         return;
+      }
+      if(beg[f0]<0){
+         beg[f0]=beg[f1];
+         end[f1]=end[f1];
+         beg[f1]=end[f1]=-1;
+         return;
+      }
+      int t=end[f0];
+      nxt[t]=beg[f1];
+      beg[f1]=end[f1]=-1;
+   }
+};
