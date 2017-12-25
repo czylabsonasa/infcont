@@ -1,0 +1,30 @@
+#define GETCHAR getchar_unlocked
+template<typename T> T getNum(void){
+   int i;
+   while(!(((i=GETCHAR())>='0') && (i<='9')));
+   T ans = (i-'0');
+   while(((i=GETCHAR())>='0')&&(i<='9')){
+      ans=((ans<<1)+(ans<<3)+(i-'0'));
+   }
+   return ans;
+}
+template<typename T,int N> struct num2Str{
+   char buff[N];
+   num2Str(){
+      buff[N-1]=0;
+   }
+   char* operator()(T x){
+      char*p=&buff[N-1];
+      do{
+         *(--p)='0'+(x%10);
+         x/=10;
+      }while(x>0);
+      return p;
+   }
+};
+char* cat(char* beg, const char* end){
+   while((*beg=*end)){
+      ++beg;++end;
+   }
+   return beg;
+}
