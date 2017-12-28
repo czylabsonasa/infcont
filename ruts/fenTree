@@ -1,0 +1,32 @@
+template<typename T, int N> struct Bit{
+   int aN ;
+   T tree[N+1] ;
+   void init(int _aN){//aN<=N
+      aN = _aN ;
+      fill(tree,tree+aN+1,0);
+   }
+   T query(int x){
+      T ans=0;
+      while(x > 0){
+         ans += tree[x];
+         x -= (x&(-x));
+      }
+      return ans ;
+   }
+   void update(int x, const T val=1){
+      while(x <= aN){
+         tree[x] += val;
+         x += (x&(-x));
+      }
+   }
+} ;
+
+   int nums[5055];
+   Bit<int, 5055> ft;
+   ft.init(mx);//mx=max(nums)
+   ft.update(nums[0]);
+   int ans=0;
+   for(int i=1; i<n; i++){
+      ans += ft.query(nums[i]);
+      ft.update(nums[i]);
+   }
