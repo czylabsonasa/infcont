@@ -1,14 +1,11 @@
-if [ -d work/"${1}" ];
+if [ -d work/"${1}"/"${2}" ];
 then
     echo "problem exists. exit"
     exit 1
 fi
 cd work
-mkdir "${1}"
-cp ../etc/skeleton${2}.cc "${1}"/"${1}".cc
-cd "${1}"
+mkdir "${1}"/"${2}"
+cp ../etc/skeleton${3}.cc "${1}"/"${2}"/main.cc
+cd "${1}"/"${2}"
 touch in
-touch "${1}".bin #assuming the same name for binary (e.g. geany)
-ln -s "${1}".bin runme
-chmod +x runme
-cd ../..
+

@@ -1,5 +1,5 @@
 #define GETCHAR getchar_unlocked
-int getnum(void){
+int getNum(void){
    int i,ans;
    while(!(((i=GETCHAR())>='0')&&(i<='9')));
    ans=(i-'0');
@@ -10,7 +10,7 @@ int getnum(void){
 }
 
 #define GETCHAR getchar_unlocked
-bool getnum(int&x){
+bool getNum(int&x){
    int i;
    while(!(((i=GETCHAR())>='0')&&(i<='9'))&&i!=EOF);
    if(i==EOF){

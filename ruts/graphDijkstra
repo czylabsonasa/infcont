@@ -1,0 +1,43 @@
+// priority queue, custom compare, Dijkstra, weighted graph
+int const NV=10008;
+int dist[2*NV];
+typedef pair<int,int> mpar;
+#define NODE first
+#define WEIGHT second
+
+   auto myless = [](int a, int b)->bool{
+      return dist[a] > dist[b];
+   };
+
+   vector<vector<mpar>> graph;
+   graph.resize(nv+1);
+   for(int i=0; i<ne; i++){
+      graph[a].push_back(mpar{b,w});
+      graph[b].push_back(mpar{a,w});
+   }
+
+   dist[1] = 0;
+   priority_queue<int, vector<int>, decltype(myless)> pq(myless);
+   pq.push(1);
+   while(!pq.empty()){
+      int s=pq.top();
+      pq.pop();
+      int delta = nv;
+      int rs = s;
+      if(s>nv){
+         rs = s-nv;
+         delta = 0;
+      }
+      if(s==nv){
+         break;
+      }
+      int d = dist[s];
+
+      for(auto tmp: graph[rs]){
+         int t = tmp.NODE+delta;
+         int w = tmp.WEIGHT;
+         if(d+w < dist[t]){
+            dist[t] = d+w;
+            pq.push(t);
+         }
+      }

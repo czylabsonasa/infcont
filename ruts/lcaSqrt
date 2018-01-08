@@ -1,0 +1,103 @@
+// type // graph // lca
+#define MDEBUG(x)
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+int const N=5004;
+vector<vector<int>> gr(N);
+int lev[N], par[N], par2[N], maxlev, resz;
+
+void pre(int node, int l, int p){
+   if(l>maxlev){
+      maxlev=l;
+   }
+   lev[node]=l; par[node]=p;
+   for(auto s:gr[node]){
+      if(s!=p){
+         pre(s,l+1,node);
+      }
+   }
+}
+
+void pre2(int node){
+   if(lev[node]%resz){
+      par2[node]=par2[par[node]];
+   }else{
+      par2[node]=par[node];
+   }
+   for(auto s:gr[node]){
+      if(s!=par[node]){
+         pre2(s);
+      }
+   }
+}
+
+int lca(int x, int y){
+   while(par2[x]!=par2[y]){
+      if(lev[x]>lev[y]){
+         x=par2[x];
+      }else{
+         y=par2[y];
+      }
+   }
+   while(x!=y){
+      if(lev[x]>lev[y]){
+         x=par[x];
+      }else{
+         y=par[y];
+      }
+   }
+   return x;
+}
+
+int up(int x, int k){//assumption there is a node up to k level
+   while(true){
+      int u=lev[x]-lev[par2[x]];
+      if(k&&k>=u){
+         k-=u;
+         x=par2[x];
+      }else{
+         break;
+      }
+   }
+   while(k){
+      x=par[x];
+      --k;
+   }
+   return x;
+}
+
+/*
+      maxlev=0;
+      pre(1,0,1);//par[1]=1 and so is par2[1], and the first
+      resz=ceil(sqrt(1+maxlev));
+      pre2(1);
+
+
+      int l=lca(a, b);
+      int ll=lev[l];
+      int la=lev[a];
+      int lb=lev[b];
+
+      if(la<lb){//la legyen a nagyobb
+         swap(a, b);
+         swap(la, lb);
+      }
+      int d=(la+lb-2*ll);
+      if(1==d%2){//infinite loop
+         a=up(a, k);
+         b=par[a];
+         if(a>b){
+            swap(a, b);
+         }
+         sprintf(ans, "The fleas jump forever between %d and %d.\n", a, b);
+            cout<<ans;
+      }else{
+         a=up(a, d/2);
+         sprintf(ans, "The fleas meet at %d.\n", a);
+         cout<<ans;
+      }
+*/
