@@ -1,0 +1,79 @@
+using namespace std;
+int const N=50004;
+vector<vector<int>> gr(N);
+vector<vector<int>> table(N);
+int lev[N], par[N], path[N];
+
+void pre(int node, int l, int p){
+   path[l]=node;
+   lev[node]=l; par[node]=p;
+   for(int u=1; u<=l; u<<=1){
+      table[node].push_back(path[l-u]);
+   }
+   for(auto s:gr[node]){
+      if(s!=p){
+         pre(s,l+1,node);
+      }
+   }
+}
+
+int up(int x, int k){//assumption there is a node up to k level
+   int i=0;
+   while(k){
+      if(k&1){
+         x=table[x][i];
+      }
+      k=k>>1;
+      ++i;
+   }
+   return x;
+}
+
+
+int lca(int x, int y){
+   if(lev[x]<lev[y]){
+      swap(x, y);
+   }
+
+   x=up(x, lev[x]-lev[y]);// equalize levels
+
+   if(x==y){
+      return x;
+   }
+   if(par[x]==par[y]){
+      return par[x];
+   }
+
+   int i=table[x].size();
+   while(par[x]!=par[y]){
+      i=min(i-1,int(table[x].size()-1));
+      while(table[x][i]==table[y][i]){
+         --i;
+      }
+      x=table[x][i];
+      y=table[y][i];
+   }
+
+   return par[x];
+}
+
+
+
+
+/*
+      for(int i=1; i<=n; i++){
+         gr[i].clear();
+         table[i].clear();
+      }
+
+      for(int i=1; i<n; i++){
+         int a,b; cin>>a>>b;
+         gr[a].push_back(b);
+         gr[b].push_back(a);
+      }
+
+      pre(1,0,1);//par[1]=1 and so is par2[1], and the first
+
+      int l=lca(a, b);
+      a=up(a, d/2);
+*/
