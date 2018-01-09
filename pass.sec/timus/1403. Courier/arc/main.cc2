@@ -1,0 +1,95 @@
+// type // sorting // greedy // partial sum
+// rossz, lasd in
+// javitva, rendezes
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+template<typename T> struct Bit{
+   int aN=-1;
+   vector<T> tree;
+   void init(int _aN){
+      if(_aN>aN){
+         aN = _aN;
+         tree.resize(aN+1);
+      }
+      fill(tree.begin(),tree.begin()+aN+1,0);
+   }
+   T query(int x){
+      T ans=0;
+      while(x > 0){
+         ans += tree[x];
+         x -= (x&(-x));
+      }
+      return ans ;
+   }
+   void update(int x, const T val=1){
+      while(x <= aN){
+         tree[x] += val;
+         x += (x&(-x));
+      }
+   }
+} ;
+
+struct info{
+   int t;
+   int r;
+   int idx;
+};
+
+bool cmp1(const info& a, const info& b){
+   return (a.r>b.r)||(((a.r==b.r)&&(a.t>b.t)));
+}
+
+bool cmp2(const info& a, const info& b){
+   return (a.r<b.r)||(((a.r==b.r)&&(a.t>b.t)));
+}
+
+
+int main(){
+   ios::sync_with_stdio(false);
+   int n; cin>>n;
+   vector<info> adat(n);
+   int mt=0;//max of time
+   for(int i=0; i<n; i++){
+      cin>>adat[i].t>>adat[i].r;
+      mt=max(adat[i].t, mt);
+      adat[i].idx=i+1;
+   }
+   sort(adat.begin(), adat.end(), cmp1);
+   Bit<int> fa;
+   fa.init(mt+1);//csokkentheto lenne plusz munkaval (folytonos rang)
+   fa.update(adat[0].t);
+   adat[0].r=-1;//inserted
+   int nd=1;
+   for(int i=1; i<n; i++){
+      int t=adat[i].t;
+      int s=fa.query(t);
+      if(s<t){
+         fa.update(t);
+         adat[i].r=-1;
+         ++nd;
+      }
+   }
+
+   sort(adat.begin(), adat.end(), cmp2);
+
+
+   cout<<nd<<"\n";
+   bool volt=false;
+   for(int i=0; i<n; i++){
+      if(-1==adat[i].r){
+         if(volt){
+            cout<<" ";
+         }
+         cout<<adat[i].idx;
+         volt=true;
+      }
+   }
+   cout<<"\n";
+
+   return 0;
+}
+

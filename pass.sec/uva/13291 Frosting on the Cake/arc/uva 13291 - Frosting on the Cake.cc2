@@ -1,0 +1,33 @@
+// type //
+// wa
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+int main(){
+   typedef unsigned long long int LLI;
+   LLI s[8];
+   LLI ans[8];
+   int n;
+   while(1==scanf("%d",&n)){
+      s[1]=s[2]=s[3]=0;
+      for(int i=1,j=1; i<=n; i++){
+         int t;scanf("%d",&t);
+         s[j]+=t;
+         if(++j==4){j=1;}
+
+      }
+      s[4]=s[1]; s[5]=s[2]; s[6]=s[3];
+      ans[1]=ans[2]=ans[3]=0;
+      for(int i=1, j=1; i<=n; i++){
+         int t;scanf("%d",&t);
+         ans[2]+=LLI(t)*s[j];
+         ans[3]+=LLI(t)*s[j+1];
+         ans[1]+=LLI(t)*s[j+2];
+         if(--j==0){j=3;}
+      }
+      printf("%llu %llu %llu\n", ans[3], ans[1], ans[2]);
+   }
+
+   return 0;
+}
