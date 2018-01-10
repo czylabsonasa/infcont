@@ -72,7 +72,7 @@ int lca(int x, int y){
          gr[b].push_back(a);
       }
 
-      pre(1,0,1);//par[1]=1
+      pre(1,0,1);//par[1]=1 and so is par2[1], and the first
 
       int l=lca(a, b);
       a=up(a, d/2);

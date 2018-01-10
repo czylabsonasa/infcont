@@ -1,0 +1,28 @@
+// type // intro
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+#include <string>
+using namespace std;
+int main(){
+   char ans[128];
+   string num;
+
+   ios::sync_with_stdio(false);
+   int esetek; cin>>esetek;
+   for(int eset=1; eset<=esetek; eset++){
+      cin>>num;
+      int j=num.length()-1;
+      int i=0;
+      while(i<j&&num[i]==num[j]){++i;--j;}
+      if(i<j){
+         sprintf(ans, "Case %d: No\n", eset);
+      }else{
+         sprintf(ans, "Case %d: Yes\n", eset);
+      }
+      cout<<ans;
+   }
+
+   return 0;
+}

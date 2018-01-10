@@ -1,3 +1,4 @@
+#!/bin/bash
 #tar czf pass.tgz --exclude '*.bin' --exclude '*runme' pass/
 #cat pass.tgz | ./etc/hide ~/.config/hide/uj > pass.tgz.sec
 #tar tf pass.tgz > pass.list
