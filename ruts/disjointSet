@@ -1,3 +1,4 @@
+#include <vector>
 struct disjointSet{
    int H;
    vector<int> holvan;
@@ -36,6 +37,8 @@ struct disjointSet{
       return ans;
    }
    void unio(int a,int b){
-      holvan[a]=b;
+      if(a!=b){
+         holvan[a]=b;
+      }
    }
 };
