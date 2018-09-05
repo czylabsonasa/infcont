@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ -d work/"${1}"/"${2}" ];
+if [ -d infcontWork/"${1}"/"${2}" ];
 then
     echo "problem exists. exit"
     exit 1
 fi
-cd work
+cd infcontWork
 mkdir "${1}"/"${2}"
 cp ../etc/skeleton${3}.cc "${1}"/"${2}"/main.cc
 cd "${1}"/"${2}"
