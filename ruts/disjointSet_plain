@@ -1,0 +1,30 @@
+int parent[200022];
+int find(int t){
+   return parent[t]>=0?parent[t]=find(parent[t]):t;
+}
+
+//~ int find(int t){ // utfelezeses (PathHalving)
+   //~ int pt,ppt;
+   //~ if((pt=parent[t])>=0){
+      //~ while((ppt=parent[pt])>=0){
+         //~ parent[t]=ppt;
+         //~ t=pt;
+         //~ pt=ppt;
+      //~ }
+      //~ t=pt;
+   //~ }
+   //~ return t;
+//~ }
+
+//~ int find(int t){ // tomoriteses (PathCompressing)
+   //~ int pt,ans;
+   //~ ans=pt=t;
+   //~ while((pt=parent[pt])>=0){
+      //~ ans=pt ;
+   //~ }
+   //~ while((pt=parent[t])>=0){
+      //~ parent[t]=ans;
+      //~ t=pt;
+   //~ }
+   //~ return ans;
+//~ }
